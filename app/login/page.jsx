@@ -19,7 +19,7 @@ const page = () => {
             <Input
               type="email"
               id="email"
-              className="p-5 text-lg bg-slate-200 focus:bg-white "
+              className="p-5 text-lg bg-slate-200  focus:bg-white "
               placeholder="Email"
             />
           </div>
