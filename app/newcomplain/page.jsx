@@ -72,7 +72,7 @@ const Page = () => {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
   return (
-    <div className=" flex justify-center mb-10 gap-5  m-auto flex-col w-[90%]">
+    <div className=" flex justify-center mb-20  gap-5  m-auto flex-col w-[90%]">
       <div className="grid w-full max-w-sm items-center gap-1.5">
         <Label className="text-md px-1" htmlFor="title">
           Title :
