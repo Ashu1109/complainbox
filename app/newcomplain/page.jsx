@@ -103,8 +103,8 @@ const Page = () => {
           </PopoverTrigger>
           <PopoverContent className="w-[200px] p-0">
             <Command>
-              <CommandInput placeholder="Search framework..." />
-              <CommandEmpty>No framework found.</CommandEmpty>
+              <CommandInput placeholder="Search Catogory..." />
+              <CommandEmpty>No Catogory found.</CommandEmpty>
               <CommandGroup>
                 {frameworks.map((framework) => (
                   <CommandItem
