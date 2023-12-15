@@ -1,9 +1,7 @@
-"use client";
-import React, { useState } from "react";
-import BottomNavbar from "../Components/BottomNavbar";
-import Card from "../Components/CardComponent";
+import React from "react";
+import BottomNavbar from "../../Components/BottomNavbar";
+import Card from "../../Components/CardComponent";
 import img from "@/app/assets/Logo.png";
-import Loader from "../Loader";
 const allComplain = [
   {
     title: "HElllo",
@@ -51,16 +49,13 @@ const allComplain = [
     status: "active",
   },
 ];
-const Page = () => {
-  const [loading, setLoading] = useState(false);
-  return loading ? (
-    <Loader />
-  ) : (
+const page = () => {
+  return (
     <div className="mb-24">
       <div className="px-10 text-xl font-semibold text-slate-500">
-        Active Complain
+        All Complain
       </div>
-      <div>
+      <div className="w-[99%] m-auto flex flex-wrap ">
         {allComplain.map((complain, index) => {
           return (
             <Card
@@ -76,11 +71,11 @@ const Page = () => {
           );
         })}
       </div>
-      <div>
+      <div className="w-full flex justify-center">
         <BottomNavbar />
       </div>
     </div>
   );
 };
 
-export default Page;
+export default page;

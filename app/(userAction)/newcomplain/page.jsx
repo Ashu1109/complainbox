@@ -1,8 +1,8 @@
-'use client'
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import React from 'react'
-import { Check, ChevronsUpDown } from "lucide-react"
+"use client";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import React from "react";
+import { Check, ChevronsUpDown } from "lucide-react";
 import { FaLocationArrow, FaShare } from "react-icons/fa";
 import { BiSolidImageAdd } from "react-icons/bi";
 import { cn } from "@/lib/utils";
@@ -31,7 +31,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import BottomNavbar from "../Components/BottomNavbar";
+import BottomNavbar from "../../Components/BottomNavbar";
 
 const frameworks = [
   {
@@ -185,4 +185,4 @@ const Page = () => {
   );
 };
 
-export default Page
+export default Page;

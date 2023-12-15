@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import BottomNavbar from "../Components/BottomNavbar";
-import ProfileCardComponent from "../Components/ProfileCardComponent";
+import BottomNavbar from "../../Components/BottomNavbar";
+import ProfileCardComponent from "../../Components/ProfileCardComponent";
 import {
   Card,
   CardContent,
