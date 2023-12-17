@@ -7,6 +7,7 @@ import { FaLocationArrow, FaShare } from "react-icons/fa";
 import { BiSolidImageAdd } from "react-icons/bi";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import axios from "axios";
 import {
   Command,
   CommandEmpty,
@@ -32,6 +33,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import BottomNavbar from "../../Components/BottomNavbar";
+import Loader from "@/app/Loader";
+import { useToast } from "@/components/ui/use-toast";
 
 const frameworks = [
   {
@@ -67,17 +70,69 @@ const frameworks = [
     label: "Other",
   },
 ];
-
 const Page = () => {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
-  return (
+  const [title, setTitle] = React.useState("");
+  const [complain, setComplain] = React.useState("");
+  const [file, setFile] = React.useState();
+  const [loading, setLoading] = React.useState(false);
+  const { toast } = useToast();
+  const handleSend = async () => {
+    try {
+      const image = file;
+      const formData = new FormData();
+      formData.append("file", image);
+      formData.append("upload_preset", "walmgz1b");
+      setLoading(true);
+      const uploadResponse = await fetch(
+        "https://api.cloudinary.com/v1_1/dhgwksjv7/image/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      const uploadedImageData = await uploadResponse.json();
+      const res = await axios.post("/api/newcomplain", {
+        title,
+        complain,
+        category: value,
+        uploadedImageData,
+      });
+      const data = await res.data;
+      setLoading(false);
+      console.log(data.success);
+      if (data.success) {
+        toast({
+          variant: "default",
+          title: data.message,
+        });
+      }
+      if (!data.success) {
+        toast({
+          variant: "destructive",
+          title: data.message,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  return loading ? (
+    <Loader />
+  ) : (
     <div className=" flex justify-center mb-20  gap-5  m-auto flex-col w-[90%]">
       <div className="grid w-full max-w-sm items-center gap-1.5">
         <Label className="text-md px-1" htmlFor="title">
           Title :
         </Label>
         <Input
+          value={title}
+          onChange={(e) => {
+            setTitle(e.target.value);
+          }}
           type="text"
           id="title"
           className="p-5 text-lg shadow-md bg-slate-200 focus:bg-white  "
@@ -132,6 +187,10 @@ const Page = () => {
       <div className="flex flex-col gap-1">
         <Label className="px-1 font-semibold text-md">Complain :</Label>
         <Textarea
+          value={complain}
+          onChange={(e) => {
+            setComplain(e.target.value);
+          }}
           className="text-lg shadow-xl focus:bg-white bg-slate-200"
           placeholder="Write Your Complain Here..."
         />
@@ -139,6 +198,7 @@ const Page = () => {
       <div className="flex justify-between">
         <div>
           <Button
+            onClick={handleSend}
             className="w-[200px] shadow-xl p-6 font-semibold tracking-wide justify-center bg-[#cd393e] text-lg text-white gap-2"
             variant="solid"
           >
@@ -158,7 +218,12 @@ const Page = () => {
             <AlertDialogContent>
               <AlertDialogHeader>Upload An Image</AlertDialogHeader>
               <AlertDialogDescription>
-                <Input type="file" />
+                <Input
+                  type="file"
+                  onChange={(e) => {
+                    setFile(e.target.files[0]);
+                  }}
+                />
               </AlertDialogDescription>
               <AlertDialogFooter
                 className={"flex flex-row justify-between items-end gap-4"}

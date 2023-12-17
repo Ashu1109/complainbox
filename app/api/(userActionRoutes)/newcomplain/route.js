@@ -1,52 +1,43 @@
-import { connect } from "@/app/dbconfig/dbconfig";
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import getDataUri from "@/app/helper/dataUri";
-import cloudinary from "cloudinary";
+import jwt from "jsonwebtoken";
 import Complain from "@/app/models/Complain";
-import multer from "multer";
-connect();
 export async function POST(req) {
   try {
-    console.log(req.body);
-    // const storage = multer.memoryStorage();
-    // const multerUpload = multer({ storage });
-    // const multerFiles = multerUpload.any();
-    // console.log(req.body());
-    // const file = req.file;
-    // const token = cookies().has("token");
-    // if (!token) {
-    //   return NextResponse.json(
-    //     { message: "Login Please", success: false },
-    //     { status: 401 }
-    //   ).redirected("/login");
-    // }
-    // if (!title || !complain || !catogories) {
-    //   return NextResponse.json(
-    //     { message: "Enter All Field", success: false },
-    //     { status: 403 }
-    //   );
-    // }
-    // let mycloud;
-    // if (file) {
-    //   const fileuri = getDataUri(file);
-    //   mycloud = await cloudinary.v2.uploader.upload(fileuri.content);
-    // }
-    // const newComplain = new Complain({
-    //   title,
-    //   complain,
-    //   catogories,
-    //   image: {
-    //     public_id: mycloud?.public_id,
-    //     url: mycloud?.secure_url,
-    //   },
-    // });
-    // const savedComplain = await newComplain.save();
+    const { title, complain, category, uploadedImageData } = await req.json();
+    if (!title || !complain || !category)
+      return NextResponse.json(
+        { message: "Enter All Field", success: false },
+        { status: 200 }
+      );
+    const token = (await req.cookies.get("token")?.value) || null;
+    if (!token) {
+      return NextResponse.json(
+        { message: "Login Please", success: false },
+        { status: 200 }
+      );
+    }
+    const userData = jwt.verify(token, process.env.JWT_SECRET);
+    const newComplain = new Complain({
+      userId: userData.user_id,
+      title,
+      complain,
+      category,
+      image: {
+        public_id: uploadedImageData.public_id || null,
+        url: uploadedImageData.secure_url || null,
+      },
+    });
+    const savedComplain = await newComplain.save();
+    console.log(savedComplain);
     return NextResponse.json(
-      { message: "Complain Send", success: true },
+      {
+        message: "Complain Send To Maintenance Office",
+        success: true,
+      },
       { status: 200 }
     );
   } catch (error) {
-    return NextResponse.json({ error: error }, { status: 500 });
+    return NextResponse.json({ error: error, success: false }, { status: 500 });
   }
 }
+``;

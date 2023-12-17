@@ -7,22 +7,22 @@ connect();
 export async function POST(req) {
   try {
     const { email, phno, password } = await req.json();
-    if ((!phno && !password) || (!email && !password))
+    if ((!phno && !email) || !password)
       return NextResponse.json(
         { message: "Enter All Field", success: false },
-        { status: 403 }
+        { status: 200 }
       );
     let user = await User.findOne({ $or: [{ email }, { phno }] });
     if (!user)
       return NextResponse.json(
         { message: "User Doesn't Exist", success: false },
-        { status: 400 }
+        { status: 200 }
       );
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch)
       return NextResponse.json(
         { message: "Invalid Input", success: false },
-        { status: 400 }
+        { status: 200 }
       );
 
     const token = generateToken(user);

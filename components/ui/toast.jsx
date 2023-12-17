@@ -23,26 +23,27 @@ const toastVariants = cva(
   {
     variants: {
       variant: {
-        default: "border bg-background text-foreground",
+        default: "border bg-background bg-green-500 text-white ",
         destructive:
-          "destructive group border-destructive bg-destructive text-destructive-foreground",
+          "destructive group border-destructive  bg-destructive text-destructive-foreground",
       },
     },
     defaultVariants: {
       variant: "default",
     },
   }
-)
+);
 
 const Toast = React.forwardRef(({ className, variant, ...props }, ref) => {
   return (
-    (<ToastPrimitives.Root
+    <ToastPrimitives.Root
       ref={ref}
       className={cn(toastVariants({ variant }), className)}
-      {...props} />)
+      {...props}
+    />
   );
-})
-Toast.displayName = ToastPrimitives.Root.displayName
+});
+Toast.displayName = ToastPrimitives.Root.displayName;
 
 const ToastAction = React.forwardRef(({ className, ...props }, ref) => (
   <ToastPrimitives.Action
@@ -51,9 +52,10 @@ const ToastAction = React.forwardRef(({ className, ...props }, ref) => (
       "inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 text-sm font-medium ring-offset-background transition-colors hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 group-[.destructive]:border-muted/40 group-[.destructive]:hover:border-destructive/30 group-[.destructive]:hover:bg-destructive group-[.destructive]:hover:text-destructive-foreground group-[.destructive]:focus:ring-destructive",
       className
     )}
-    {...props} />
-))
-ToastAction.displayName = ToastPrimitives.Action.displayName
+    {...props}
+  />
+));
+ToastAction.displayName = ToastPrimitives.Action.displayName;
 
 const ToastClose = React.forwardRef(({ className, ...props }, ref) => (
   <ToastPrimitives.Close
@@ -63,15 +65,20 @@ const ToastClose = React.forwardRef(({ className, ...props }, ref) => (
       className
     )}
     toast-close=""
-    {...props}>
+    {...props}
+  >
     <X className="h-4 w-4" />
   </ToastPrimitives.Close>
-))
-ToastClose.displayName = ToastPrimitives.Close.displayName
+));
+ToastClose.displayName = ToastPrimitives.Close.displayName;
 
 const ToastTitle = React.forwardRef(({ className, ...props }, ref) => (
-  <ToastPrimitives.Title ref={ref} className={cn("text-sm font-semibold", className)} {...props} />
-))
+  <ToastPrimitives.Title
+    ref={ref}
+    className={cn("text-md font-semibold", className)}
+    {...props}
+  />
+));
 ToastTitle.displayName = ToastPrimitives.Title.displayName
 
 const ToastDescription = React.forwardRef(({ className, ...props }, ref) => (

@@ -12,13 +12,13 @@ const complainSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    catogery: {
+    category: {
       type: String,
       required: true,
     },
     status: {
       type: String,
-      default: "Active",
+      default: "active",
     },
     image: {
       public_id: {
