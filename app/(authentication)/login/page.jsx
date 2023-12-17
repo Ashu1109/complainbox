@@ -7,11 +7,14 @@ import axios from "axios";
 import Link from "next/link";
 import { useToast } from "@/components/ui/use-toast";
 import Loader from "@/app/Loader";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 const Page = () => {
   const [emailOrPhoneNo, setEmailOrPhoneNo] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+  const router = useRouter();
   const login = async () => {
     try {
       const type = document.getElementById("text");
@@ -29,12 +32,16 @@ const Page = () => {
         });
       }
       const data = await res.data;
+      if (data.role === "admin") {
+        Cookies.set("admintoken", "admin");
+      }
       setLoading(false);
       if (data.success) {
         toast({
           variant: "default",
           title: data.message,
         });
+        router.push("/dashboard");
       }
       if (!data.success) {
         toast({
@@ -71,7 +78,7 @@ const Page = () => {
                 ? "number"
                 : "text"
             }
-            id="text"
+            id="email"
             className="p-5 text-lg bg-slate-200  focus:bg-white "
             placeholder="Email / Ph no. "
           />

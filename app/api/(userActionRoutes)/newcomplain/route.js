@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import Complain from "@/app/models/Complain";
+import User from "@/app/models/User";
+import { connect } from "@/app/dbconfig/dbconfig";
+connect();
 export async function POST(req) {
   try {
     const { title, complain, category, uploadedImageData } = await req.json();
@@ -17,18 +20,20 @@ export async function POST(req) {
       );
     }
     const userData = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findOne({ _id: userData.user_id });
     const newComplain = new Complain({
       userId: userData.user_id,
-      title,
+      flatno: user.flatno,
       complain,
+      title,
       category,
       image: {
         public_id: uploadedImageData.public_id || null,
         url: uploadedImageData.secure_url || null,
       },
     });
+
     const savedComplain = await newComplain.save();
-    console.log(savedComplain);
     return NextResponse.json(
       {
         message: "Complain Send To Maintenance Office",
@@ -40,4 +45,4 @@ export async function POST(req) {
     return NextResponse.json({ error: error, success: false }, { status: 500 });
   }
 }
-``;
+

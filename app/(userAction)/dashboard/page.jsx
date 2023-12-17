@@ -1,14 +1,17 @@
 'use client'
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
 import Loader from "@/app/Loader";
 import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
 const Page = () => {
   const [loading, setLoading] = useState("");
   const { toast } = useToast();
+  const router = useRouter();
+  const [isAdmin, setIsAdmin] = useState(false);
   const logout = async () => {
     try {
       setLoading(true);
@@ -20,6 +23,7 @@ const Page = () => {
           variant: "default",
           title: data.message,
         });
+        router.push("/login");
       }
       if (!data.success) {
         toast({
@@ -33,17 +37,40 @@ const Page = () => {
       setLoading(false);
     }
   };
+  const handleLoad = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get("/api/admintoken");
+      const data = await res.data;
+      if (data.adminToken == "admin") {
+        setIsAdmin(true);
+      }
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    handleLoad();
+  }, []);
   return loading ? (
     <Loader />
   ) : (
     <div className="flex min-h-[83vh] items-center flex-col gap-10">
-      <div className="w-full px-10 ">
-        <div className="text-3xl tracking-wide  font-medium  font-sans">
-          Hello There
+        <div className="w-full px-10  flex gap-8 ">
+          <div>
+            <div className="text-3xl tracking-wide  font-medium  font-sans">Hello There</div>
+            <div className=" text-2xl px-1 text-slate-700 font-serif">Welcome</div></div>
+          <div>
+            {isAdmin && <Button
+              className="w-[90%] m-auto shadow-lg bg-[#cd393e] text-stone-200 text-lg font-bold tracking-wide"
+              variant="primary"
+              size="lg">
+              <Link href={"/complain"}>Admin Dashboard</Link>
+            </Button>}
+          </div>
         </div>
-        <div className=" text-2xl px-1 text-slate-700 font-serif">Welcome</div>
-      </div>
-      <div className="bg-slate-200 w-[90%] rounded-lg py-20 flex flex-col justify-center items-center px-10">
+        <div className="bg-slate-200 w-[90%] rounded-lg py-16 flex flex-col justify-center items-center px-10">
         <Button
           className="w-[90%] m-auto shadow-lg bg-[#cd393e] text-stone-200 text-lg font-bold tracking-wide"
           variant="primary"
@@ -75,6 +102,7 @@ const Page = () => {
           Logout
         </Button>
       </div>
+
     </div>
   );
 };

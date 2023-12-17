@@ -1,9 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BottomNavbar from "../../Components/BottomNavbar";
 import Card from "../../Components/CardComponent";
 import img from "@/app/assets/Logo.png";
 import Loader from "../../Loader";
+import axios from "axios";
 const allComplain = [
   {
     title: "HElllo",
@@ -53,6 +54,17 @@ const allComplain = [
 ];
 const Page = () => {
   const [loading, setLoading] = useState(false);
+  const [activeComplain, setActiveComplain] = useState([]);
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get("/api/activecomplain")
+      .then((res) => res.data)
+      .then((data) => {
+        setActiveComplain(data.activeComplain);
+      });
+    setLoading(false);
+  }, []);
   return loading ? (
     <Loader />
   ) : (
@@ -61,20 +73,26 @@ const Page = () => {
         Active Complain
       </div>
       <div className="w-[99%] m-auto flex flex-wrap ">
-        {allComplain.map((complain, index) => {
-          return (
-            <Card
-              key={index}
-              title={complain.title}
-              discription={complain.discription}
-              catogory={complain.catogory}
-              src={complain.image}
-              status={complain.status}
-              date={"13/43/20"}
-              time={"17:24"}
-            />
-          );
-        })}
+        {activeComplain && activeComplain.length == 0 ? (
+          <div className="min-h-[70vh] w-full flex  justify-center items-center">
+            <div className="text-lg font-semibold">No Active Complain</div>
+          </div>
+        ) : (
+          activeComplain.map((complain, index) => {
+            return (
+              <Card
+                key={index}
+                title={complain.title}
+                discription={complain.discription}
+                catogory={complain.category}
+                src={complain.image.url}
+                status={complain.status}
+                date={complain.updatedAt.split("T")[0]}
+                time={complain.updatedAt.split("T")[1].split(".")[0]}
+              />
+            );
+          })
+        )}
       </div>
       <div className="w-full flex justify-center">
         <BottomNavbar />

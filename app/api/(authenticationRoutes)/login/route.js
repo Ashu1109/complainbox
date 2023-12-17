@@ -25,9 +25,9 @@ export async function POST(req) {
         { status: 200 }
       );
 
-    const token = generateToken(user);
+    const token = await generateToken(user);
     const res = NextResponse.json(
-      { message: "Login Successful", success: true },
+      { message: "Login Successful", success: true, role: user.role },
       { status: 200 }
     );
     res.cookies.set("token", token);

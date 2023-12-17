@@ -5,7 +5,8 @@ export async function generateToken(savedUser) {
     user_name: savedUser.name,
     user_email: savedUser.email,
   };
-  return await jwt.sign(tokenContent, process.env.JWT_SECRET, {
+  const token = await jwt.sign(tokenContent, process.env.JWT_SECRET, {
     expiresIn: "10d",
   });
+  return token;
 }

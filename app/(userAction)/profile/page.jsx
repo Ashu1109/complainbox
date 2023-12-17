@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BottomNavbar from "../../Components/BottomNavbar";
 import ProfileCardComponent from "../../Components/ProfileCardComponent";
 import {
@@ -22,13 +22,37 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import axios from "axios";
+import Loader from "@/app/Loader";
 const Page = () => {
-  return (
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [loading, setLaoding] = useState(false);
+  const handleLoad = async () => {
+    try {
+      setLaoding(true);
+      const res = await axios.get("/api/profile");
+      const data = await res.data;
+      setLaoding(false);
+      setName(data.userName);
+      setEmail(data.userEmail);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLaoding(false);
+    }
+  };
+  useEffect(() => {
+    handleLoad();
+  }, []);
+  return loading ? (
+    <Loader />
+  ) : (
     <div className=" m-auto w-full">
       <div className="w-[90%] m-auto flex flex-col gap-4">
         <ProfileCardComponent
-          name={"Aayush Kumar"}
-          email={"Aayushkumar@gmail.com"}
+          name={name ? name : "User Name"}
+          email={email ? email : "User Email"}
         />
         <Card>
           <CardHeader className={"flex gap-2"}>

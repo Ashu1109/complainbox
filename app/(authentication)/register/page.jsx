@@ -7,6 +7,7 @@ import Link from "next/link";
 import axios from "axios";
 import { useToast } from "@/components/ui/use-toast";
 import Loader from "@/app/Loader";
+import { useRouter } from "next/navigation";
 const Page = () => {
   const [name, setName] = useState("");
   const [flatno, setFlatno] = useState("");
@@ -15,6 +16,7 @@ const Page = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+  const router = useRouter();
   const register = async () => {
     try {
       setLoading(true);
@@ -32,6 +34,7 @@ const Page = () => {
           variant: "default",
           title: data.message,
         });
+        router.push("/dashboard");
       }
       if (!data.success) {
         toast({
