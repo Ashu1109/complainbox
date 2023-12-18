@@ -5,65 +5,72 @@ import Card from "../../Components/CardComponent";
 import img from "@/app/assets/Logo.png";
 import Loader from "../../Loader";
 import axios from "axios";
-const allComplain = [
-  {
-    title: "HElllo",
-    discription:
-      "lskfnglksf.ng sk;rfg,.ms lk.fnv lks.fxmng vlkrsm.fs.kf;ksmfksr.,mflkrs.,mflksr,.mflker.dsmngflkfdv.mnfg lkrmsfnxlkm",
-    catogory: "electrical",
-    image: img,
-    status: "active",
-  },
-  {
-    title: "HElllo",
-    discription: "lskfnglksf.ng sk;rfg,.ms lk.fnv lks.fxmng vlkrsm.f",
-    catogory: "housekeeping",
-    image: img,
-    status: "Proccessing",
-  },
-  {
-    title: "HElllo",
-    discription: "lskfnglksf.ng sk;rfg,.ms lk.fnv lks.fxmng vlkrsm.f",
-    catogory: "gardening",
-    status: "closed",
-  },
-  {
-    title: "HElllo",
-    discription: "lskfnglksf.ng sk;rfg,.ms lk.fnv lks.fxmng vlkrsm.f",
-    catogory: "security",
-    status: "Proccessing",
-  },
-  {
-    title: "HElllo",
-    discription: "lskfnglksf.ng sk;rfg,.ms lk.fnv lks.fxmng vlkrsm.f",
-    catogory: "office",
-    status: "closed",
-  },
-  {
-    title: "HElllo",
-    discription: "lskfnglksf.ng sk;rfg,.ms lk.fnv lks.fxmng vlkrsm.f",
-    catogory: "maintenance",
-    status: "active",
-  },
-  {
-    title: "HElllo",
-    discription: "lskfnglksf.ng sk;rfg,.ms lk.fnv lks.fxmng vlkrsm.f",
-    catogory: "other",
-    status: "active",
-  },
-];
+// const allComplain = [
+//   {
+//     title: "HElllo",
+//     discription:
+//       "lskfnglksf.ng sk;rfg,.ms lk.fnv lks.fxmng vlkrsm.fs.kf;ksmfksr.,mflkrs.,mflksr,.mflker.dsmngflkfdv.mnfg lkrmsfnxlkm",
+//     catogory: "electrical",
+//     image: img,
+//     status: "active",
+//   },
+//   {
+//     title: "HElllo",
+//     discription: "lskfnglksf.ng sk;rfg,.ms lk.fnv lks.fxmng vlkrsm.f",
+//     catogory: "housekeeping",
+//     image: img,
+//     status: "Proccessing",
+//   },
+//   {
+//     title: "HElllo",
+//     discription: "lskfnglksf.ng sk;rfg,.ms lk.fnv lks.fxmng vlkrsm.f",
+//     catogory: "gardening",
+//     status: "closed",
+//   },
+//   {
+//     title: "HElllo",
+//     discription: "lskfnglksf.ng sk;rfg,.ms lk.fnv lks.fxmng vlkrsm.f",
+//     catogory: "security",
+//     status: "Proccessing",
+//   },
+//   {
+//     title: "HElllo",
+//     discription: "lskfnglksf.ng sk;rfg,.ms lk.fnv lks.fxmng vlkrsm.f",
+//     catogory: "office",
+//     status: "closed",
+//   },
+//   {
+//     title: "HElllo",
+//     discription: "lskfnglksf.ng sk;rfg,.ms lk.fnv lks.fxmng vlkrsm.f",
+//     catogory: "maintenance",
+//     status: "active",
+//   },
+//   {
+//     title: "HElllo",
+//     discription: "lskfnglksf.ng sk;rfg,.ms lk.fnv lks.fxmng vlkrsm.f",
+//     catogory: "other",
+//     status: "active",
+//   },
+// ];
 const Page = () => {
   const [loading, setLoading] = useState(false);
   const [activeComplain, setActiveComplain] = useState([]);
+  const handleLoad = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get("/api/activecomplain");
+      const data = await res.data;
+      setActiveComplain(data.activeComplain);
+      console.log(activeComplain);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
-    setLoading(true);
-    axios
-      .get("/api/activecomplain")
-      .then((res) => res.data)
-      .then((data) => {
-        setActiveComplain(data.activeComplain);
-      });
-    setLoading(false);
+    handleLoad();
   }, []);
   return loading ? (
     <Loader />

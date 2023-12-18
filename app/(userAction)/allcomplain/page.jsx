@@ -55,16 +55,22 @@ import Loader from "@/app/Loader";
 const Page = () => {
   const [allComplain, setAllComplain] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const handleLoad = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get("/api/allcomplain");
+      const data = await res.data;
+      setAllComplain(data.allComplain);
+      console.log(allComplain);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
-    setLoading(true);
-    axios
-      .get("/api/allcomplain")
-      .then((res) => res.data)
-      .then((data) => {
-        setAllComplain(data.allComplain);
-      });
-    setLoading(false);
+    handleLoad();
   }, []);
   return loading ? (
     <Loader />
