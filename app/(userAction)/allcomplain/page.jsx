@@ -80,22 +80,23 @@ const Page = () => {
         </div>
       ) : (
         <div className="w-[99%] m-auto flex flex-wrap ">
-          {allComplain.map((complain) => {
-            return (
-              <>
-                <Card
-                  key={complain._id}
-                  title={complain.title}
-                  discription={complain.discription}
-                  catogory={complain.category}
-                  src={complain.image.url}
-                  status={complain.status}
-                  date={complain.updatedAt.split("T")[0]}
-                  time={complain.updatedAt.split("T")[1].split(".")[0]}
-                />
-              </>
-            );
-          })}
+          {allComplain &&
+            allComplain.map((complain) => {
+              return (
+                <>
+                  <Card
+                    key={complain._id}
+                    title={complain.title}
+                    discription={complain.discription}
+                    catogory={complain.category}
+                    src={complain.image.url}
+                    status={complain.status}
+                    date={complain.updatedAt.split("T")[0]}
+                    time={complain.updatedAt.split("T")[1].split(".")[0]}
+                  />
+                </>
+              );
+            })}
         </div>
       )}
       <div className="w-full flex justify-center">
