@@ -68,37 +68,39 @@ const Page = () => {
   return loading ? (
     <Loader />
   ) : (
-    <div className="mb-24 w-full">
-      <div className="px-10 text-xl font-semibold text-slate-500">
-        Active Complain
-      </div>
-      <div className="w-[99%] m-auto flex flex-wrap ">
-        {activeComplain && activeComplain.length == 0 ? (
-          <div className="min-h-[70vh] w-full flex  justify-center items-center">
-            <div className="text-lg font-semibold">No Active Complain</div>
+    <>
+      <div className="mb-24 w-full">
+        <div className="px-10 text-xl font-semibold text-slate-500">
+          Active Complain
+        </div>
+        {activeComplain && activeComplain.length < 1 ? (
+          <div className="min-h-[70vh] w-full flex justify-center items-center">
+            <div className=" text-lg font-semibold">No Active Complain</div>
           </div>
         ) : (
-          activeComplain &&
-          activeComplain.map((complain, index) => {
-            return (
-              <Card
-                key={index}
-                title={complain.title}
-                discription={complain.discription}
-                catogory={complain.category}
-                src={complain.image.url}
-                status={complain.status}
-                date={complain.updatedAt.split("T")[0]}
-                time={complain.updatedAt.split("T")[1].split(".")[0]}
-              />
-            );
-          })
+          <div className="w-[99%] m-auto flex flex-wrap ">
+            {activeComplain &&
+              activeComplain.map((complain) => {
+                return (
+                  <Card
+                    key={complain._id}
+                    title={complain.title}
+                    discription={complain.discription}
+                    catogory={complain.category}
+                    src={complain.image.url}
+                    status={complain.status}
+                    date={complain.updatedAt.split("T")[0]}
+                    time={complain.updatedAt.split("T")[1].split(".")[0]}
+                  />
+                );
+              })}
+          </div>
         )}
+        <div className="w-full flex justify-center">
+          <BottomNavbar />
+        </div>
       </div>
-      <div className="w-full flex justify-center">
-        <BottomNavbar />
-      </div>
-    </div>
+    </>
   );
 };
 

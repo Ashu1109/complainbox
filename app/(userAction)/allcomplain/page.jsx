@@ -73,29 +73,31 @@ const Page = () => {
       <div className="px-10 text-xl font-semibold text-slate-500">
         All Complain
       </div>
-      <div className="w-[99%] m-auto flex flex-wrap ">
-        {allComplain && allComplain.length == 0 ? (
-          <div className="min-h-[70vh] w-full flex  justify-center items-center">
-            <div className="text-lg font-semibold">No New Complain</div>
-          </div>
-        ) : (
-          allComplain &&
-          allComplain.map((complain, index) => {
+
+      {allComplain && allComplain.length == 0 ? (
+        <div className="min-h-[70vh] w-full flex  justify-center items-center">
+          <div className="text-lg font-semibold">No New Complain</div>
+        </div>
+      ) : (
+        <div className="w-[99%] m-auto flex flex-wrap ">
+          {allComplain.map((complain) => {
             return (
-              <Card
-                key={index}
-                title={complain.title}
-                discription={complain.discription}
-                catogory={complain.category}
-                src={complain.image.url}
-                status={complain.status}
-                date={complain.updatedAt.split("T")[0]}
-                time={complain.updatedAt.split("T")[1].split(".")[0]}
-              />
+              <>
+                <Card
+                  key={complain._id}
+                  title={complain.title}
+                  discription={complain.discription}
+                  catogory={complain.category}
+                  src={complain.image.url}
+                  status={complain.status}
+                  date={complain.updatedAt.split("T")[0]}
+                  time={complain.updatedAt.split("T")[1].split(".")[0]}
+                />
+              </>
             );
-          })
-        )}
-      </div>
+          })}
+        </div>
+      )}
       <div className="w-full flex justify-center">
         <BottomNavbar />
       </div>
