@@ -34,7 +34,11 @@ const Page = () => {
       console.log(res.data);
       const data = await res.data;
       if (data.role === "admin") {
-        Cookies.set("admintoken", "admin");
+        Cookies.set("admintoken", "admin", {
+          path: "/",
+          secure: true,
+          sameSite: "strict",
+        });
       }
       setLoading(false);
       if (data.success) {

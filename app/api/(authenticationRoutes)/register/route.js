@@ -40,7 +40,11 @@ export async function POST(req) {
       { message: "Registration Successful", success: true },
       { status: 200 }
     );
-    res.cookies.set("token", token);
+    res.cookies.set("token", token, {
+      path: "/",
+      secure: true,
+      sameSite: "strict",
+    });
     return res;
   } catch (error) {
     return NextResponse.json({ error: error, success: false }, { status: 200 });

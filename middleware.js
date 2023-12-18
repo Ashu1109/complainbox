@@ -6,6 +6,9 @@ export async function middleware(request) {
     const isAdmin = path == "/complain" || path == "/users";
     const token = request.cookies.get("token")?.value || null;
     const adminToken = request.cookies.get("admintoken")?.value || null;
+    if (path === "/") {
+      return NextResponse.redirect(new URL("/login", request.nextUrl));
+    }
     if (!adminToken && isAdmin) {
       return NextResponse.redirect(new URL("/dashboard", request.nextUrl));
     }

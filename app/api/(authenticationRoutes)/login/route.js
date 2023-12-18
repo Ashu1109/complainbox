@@ -30,7 +30,11 @@ export async function POST(req) {
       { message: "Login Successful", success: true, role: user.role },
       { status: 200 }
     );
-    res.cookies.set("token", token);
+    res.cookies.set("token", token, {
+      path: "/",
+      secure: true,
+      sameSite: "strict",
+    });
     return res;
   } catch (error) {
     return NextResponse.json({ error: error }, { status: 500 });
