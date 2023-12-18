@@ -42,6 +42,7 @@ const Page = () => {
       setLoading(true);
       const res = await axios.get("/api/admintoken");
       const data = await res.data;
+      console.log(res.data);
       if (data.adminToken == "admin") {
         setIsAdmin(true);
       }

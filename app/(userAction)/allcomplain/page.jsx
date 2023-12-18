@@ -79,6 +79,7 @@ const Page = () => {
             <div className="text-lg font-semibold">No New Complain</div>
           </div>
         ) : (
+          allComplain &&
           allComplain.map((complain, index) => {
             return (
               <Card

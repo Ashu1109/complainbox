@@ -78,6 +78,7 @@ const Page = () => {
             <div className="text-lg font-semibold">No Active Complain</div>
           </div>
         ) : (
+          activeComplain &&
           activeComplain.map((complain, index) => {
             return (
               <Card
