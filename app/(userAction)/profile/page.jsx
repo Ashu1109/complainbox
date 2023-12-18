@@ -54,7 +54,7 @@ const Page = () => {
           name={name ? name : "User Name"}
           email={email ? email : "User Email"}
         />
-        <Card>
+        {/* <Card>
           <CardHeader className={"flex gap-2"}>
             <CardTitle>Contact Us</CardTitle>
             <CardDescription className={"flex gap-6 py-2"}>
@@ -83,7 +83,7 @@ const Page = () => {
         </Card>
         <div className="w-full flex justify-center">
           <BottomNavbar />
-        </div>
+        </div> */}
       </div>
     </div>
   );

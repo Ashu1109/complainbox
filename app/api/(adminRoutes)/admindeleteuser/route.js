@@ -1,11 +1,11 @@
 import { connect } from "@/app/dbconfig/dbconfig";
-import Complain from "@/app/models/Complain";
+import User from "@/app/models/User";
 import { NextResponse } from "next/server";
 connect();
-export async function PUT(req) {
+export async function POST(req) {
   try {
-    const { e, id } = await req.json();
-    if (!e || !id) {
+    const { id } = await req.json();
+    if (!id) {
       return NextResponse.json(
         { message: "invalid Input", success: false },
         { status: 200 }
@@ -14,16 +14,13 @@ export async function PUT(req) {
     const adminToken = (await req.cookies.get("admintoken")?.value) || null;
     if (!adminToken) {
       return NextResponse.json(
-        { message: "Only admin can update user", success: false },
+        { message: "Only admin can delete user", success: false },
         { status: 200 }
       );
     }
-    const updatedComplain = await Complain.updateOne(
-      { _id: id },
-      { status: e }
-    );
+    const user = await User.deleteOne({ _id: id });
     return NextResponse.json(
-      { message: "Status Updated", success: true },
+      { message: "User Deleted", success: true },
       { status: 200 }
     );
   } catch (error) {

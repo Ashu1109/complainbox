@@ -2,56 +2,8 @@
 import React, { useEffect, useState } from "react";
 import BottomNavbar from "../../Components/BottomNavbar";
 import Card from "../../Components/CardComponent";
-import img from "@/app/assets/Logo.png";
 import Loader from "../../Loader";
 import axios from "axios";
-// const allComplain = [
-//   {
-//     title: "HElllo",
-//     discription:
-//       "lskfnglksf.ng sk;rfg,.ms lk.fnv lks.fxmng vlkrsm.fs.kf;ksmfksr.,mflkrs.,mflksr,.mflker.dsmngflkfdv.mnfg lkrmsfnxlkm",
-//     catogory: "electrical",
-//     image: img,
-//     status: "active",
-//   },
-//   {
-//     title: "HElllo",
-//     discription: "lskfnglksf.ng sk;rfg,.ms lk.fnv lks.fxmng vlkrsm.f",
-//     catogory: "housekeeping",
-//     image: img,
-//     status: "Proccessing",
-//   },
-//   {
-//     title: "HElllo",
-//     discription: "lskfnglksf.ng sk;rfg,.ms lk.fnv lks.fxmng vlkrsm.f",
-//     catogory: "gardening",
-//     status: "closed",
-//   },
-//   {
-//     title: "HElllo",
-//     discription: "lskfnglksf.ng sk;rfg,.ms lk.fnv lks.fxmng vlkrsm.f",
-//     catogory: "security",
-//     status: "Proccessing",
-//   },
-//   {
-//     title: "HElllo",
-//     discription: "lskfnglksf.ng sk;rfg,.ms lk.fnv lks.fxmng vlkrsm.f",
-//     catogory: "office",
-//     status: "closed",
-//   },
-//   {
-//     title: "HElllo",
-//     discription: "lskfnglksf.ng sk;rfg,.ms lk.fnv lks.fxmng vlkrsm.f",
-//     catogory: "maintenance",
-//     status: "active",
-//   },
-//   {
-//     title: "HElllo",
-//     discription: "lskfnglksf.ng sk;rfg,.ms lk.fnv lks.fxmng vlkrsm.f",
-//     catogory: "other",
-//     status: "active",
-//   },
-// ];
 const Page = () => {
   const [loading, setLoading] = useState(false);
   const [activeComplain, setActiveComplain] = useState([]);

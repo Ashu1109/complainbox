@@ -83,13 +83,20 @@ const Page = () => {
     <Loader />
   ) : (
     <>
-      <div className="w-[50vw] mb-9 ml-5">
+      <div className="w-[50vw] flex gap-5 mb-9 ml-5">
         <Button
           className="w-[90%] m-auto shadow-lg bg-[#cd393e] text-stone-200 text-lg font-bold tracking-wide"
           variant="primary"
           size="lg"
         >
           <Link href={"/users"}>All Users</Link>
+        </Button>
+        <Button
+          className="w-[90%] m-auto shadow-lg bg-[#cd393e] text-stone-200 text-lg font-bold tracking-wide"
+          variant="primary"
+          size="lg"
+        >
+          <Link href={"/dashboard"}>Dashboard</Link>
         </Button>
       </div>
       <Table className="w-[90%]  m-auto">
@@ -108,7 +115,7 @@ const Page = () => {
         <TableBody>
           {complain.length > 0 &&
             complain.map((complain, index) => (
-              <TableRow key={index}>
+              <TableRow key={complain._id}>
                 <TableCell>{index + 1}</TableCell>
                 <TableCell className="font-medium">{complain.flatno}</TableCell>
                 <TableCell>{complain.title}</TableCell>

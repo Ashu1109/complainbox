@@ -8,6 +8,7 @@ import { BiSolidImageAdd } from "react-icons/bi";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
+import Link from "next/link";
 import {
   Command,
   CommandEmpty,
@@ -78,6 +79,7 @@ const Page = () => {
   const [file, setFile] = React.useState();
   const [loading, setLoading] = React.useState(false);
   const { toast } = useToast();
+  const share = `Title: ${title}%0D%0AComplain: ${complain}`;
   const handleSend = async () => {
     try {
       const image = file;
@@ -235,12 +237,14 @@ const Page = () => {
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
-          <div
-            className="w-[60px] flex justify-center items-center shadow-xl h-[50px] bg-slate-200  text-lg font-semibold tracking-wide"
-            variant="solid"
-          >
-            <FaShare size={20} />
-          </div>
+          <Link href={`whatsapp://send?text=${share}`}>
+            <div
+              className="w-[60px] flex justify-center items-center shadow-xl h-[50px] bg-slate-200  text-lg font-semibold tracking-wide"
+              variant="solid"
+            >
+              <FaShare size={20} />
+            </div>
+          </Link>
         </div>
       </div>
       <div className="w-full flex justify-center items-center shadow-lg">
