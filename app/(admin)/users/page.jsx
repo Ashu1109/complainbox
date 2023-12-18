@@ -39,7 +39,6 @@ const Page = () => {
       setLoading(true);
       const res = await axios.post("/api/admindeleteuser", { id });
       const data = await res.data;
-      console.log(data);
       setLoading(false);
       handleLoad();
       if (data.success) {

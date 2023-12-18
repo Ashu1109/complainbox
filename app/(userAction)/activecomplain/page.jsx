@@ -13,7 +13,6 @@ const Page = () => {
       const res = await axios.get("/api/activecomplain");
       const data = await res.data;
       setActiveComplain(data.activeComplain);
-      console.log(activeComplain);
       setLoading(false);
     } catch (error) {
       console.log(error);

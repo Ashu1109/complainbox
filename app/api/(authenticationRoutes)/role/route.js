@@ -10,7 +10,6 @@ export async function GET(req) {
         { status: 200 }
       );
     }
-    console.log("hrllo");
     const userData = await jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findOne({ _id: userData.user_id });
     return NextResponse.json({ role: user.role }, { status: 200 });

@@ -31,7 +31,6 @@ const Page = () => {
           password,
         });
       }
-      console.log(res.data);
       const data = await res.data;
       if (data.role === "admin") {
         Cookies.set("admintoken", "admin", {

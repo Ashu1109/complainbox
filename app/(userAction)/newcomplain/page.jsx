@@ -103,7 +103,6 @@ const Page = () => {
       });
       const data = await res.data;
       setLoading(false);
-      console.log(data.success);
       if (data.success) {
         toast({
           variant: "default",

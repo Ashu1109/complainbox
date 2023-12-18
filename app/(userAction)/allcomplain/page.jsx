@@ -13,7 +13,6 @@ const Page = () => {
       const res = await axios.get("/api/allcomplain");
       const data = await res.data;
       setAllComplain(data.allComplain);
-      console.log(allComplain);
       setLoading(false);
     } catch (error) {
       console.log(error);
