@@ -17,7 +17,7 @@ const Page = () => {
   const router = useRouter();
   const login = async () => {
     try {
-      const type = document.getElementById("text");
+      const type = document.getElementById("email");
       let res;
       setLoading(true);
       if (type.getAttribute("type") == "number") {
@@ -31,6 +31,7 @@ const Page = () => {
           password,
         });
       }
+      console.log(res.data);
       const data = await res.data;
       if (data.role === "admin") {
         Cookies.set("admintoken", "admin");
