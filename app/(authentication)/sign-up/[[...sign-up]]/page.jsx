@@ -18,7 +18,6 @@ const Page = () => {
   // const [loading, setLoading] = useState(false);
   // const { toast } = useToast();
   const { sessionClaims } = auth();
-  console.log(sessionClaims);
   // const router = useRouter();
   // const register = async () => {
   //   try {
@@ -55,7 +54,9 @@ const Page = () => {
     // loading ? (
     //   <Loader />
     // ) :
-    <SignUp />
+    <div className=" w-full flex justify-center items-center">
+      <SignUp />
+    </div>
   );
   // <div className=" flex flex-col justify-center">
   //   <div className="w-full px-10 ">
