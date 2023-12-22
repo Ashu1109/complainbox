@@ -1,12 +1,9 @@
 import mongoose from "mongoose";
 const complainSchema = new mongoose.Schema(
   {
-    flatno: {
-      type: String,
-      requied: true,
-    },
     userId: {
-      type: mongoose.Types.ObjectId,
+      type: String,
+      required: true,
     },
     title: {
       type: String,

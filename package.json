@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.29.0",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-aspect-ratio": "^1.0.3",
     "@radix-ui/react-dialog": "^1.0.5",
@@ -40,6 +41,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@types/react": "18.2.45",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.0.3",

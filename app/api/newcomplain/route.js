@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
 import Complain from "@/app/models/Complain";
-import User from "@/app/models/User";
 import { connect } from "@/app/dbconfig/dbconfig";
+import { auth } from "@clerk/nextjs";
 connect();
 export async function POST(req) {
   try {
@@ -12,18 +11,15 @@ export async function POST(req) {
         { message: "Enter All Field", success: false },
         { status: 200 }
       );
-    const token = (await req.cookies.get("token")?.value) || null;
-    if (!token) {
-      return NextResponse.json(
-        { message: "Login Please", success: false },
+    const { userId } = auth();
+    if (!userId) {
+      NextResponse.json(
+        { message: "User Not SignIn", success: false },
         { status: 200 }
       );
     }
-    const userData = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await User.findOne({ _id: userData.user_id });
     const newComplain = new Complain({
-      userId: userData.user_id,
-      flatno: user.flatno,
+      userId: userId,
       complain,
       title,
       category,
@@ -45,4 +41,3 @@ export async function POST(req) {
     return NextResponse.json({ error: error, success: false }, { status: 500 });
   }
 }
-

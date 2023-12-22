@@ -53,7 +53,7 @@ const BottomNavbar = () => {
         </div>
         <div className="flex-1 group">
           <a
-            href="/dashboard"
+            href="/"
             className="flex justify-center items-center text-center mx-auto px-2 pt-2 w-full text-gray-400 group-hover:text-[#DC3E42] border-b-2 border-transparent group-hover:border-[#DC3E42]"
           >
             <span className=" px-1 flex justify-center gap-2 items-center flex-col pt-1 pb-2">
